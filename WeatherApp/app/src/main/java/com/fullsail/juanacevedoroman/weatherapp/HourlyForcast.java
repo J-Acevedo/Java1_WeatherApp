@@ -1,5 +1,6 @@
 package com.fullsail.juanacevedoroman.weatherapp;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -17,8 +18,6 @@ import java.util.ArrayList;
  */
 public class HourlyForcast extends AsyncTask<String, Integer, String>{
 
-    HourlyAdapter adapter;
-    ArrayList<HourlyPull> hourPop = new ArrayList<HourlyPull>();
     HttpURLConnection hourly_Connection;
 
     JSONObject FCTTIME;
@@ -32,6 +31,16 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
     String iconHolder;
     String humidityHolder;
     String feelsHolder;
+
+    Context mContext;
+    ArrayList<HourlyPull> data;
+
+    public HourlyForcast(Context _mContext, ArrayList<HourlyPull> _data){
+
+        mContext = _mContext;
+        data = _data;
+
+    }
 
 
     @Override
@@ -118,6 +127,18 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
                         }
 
                     }
+                    /**
+                     *
+                     * @param _pretty
+                     * @param _civil
+                     * @param _temp
+                     * @param _feelsLike
+                     * @param _condition
+                     * @param _humidity
+                     * @param _icon
+                     */
+
+                    data.add(new HourlyPull(prettyHolder, civilHolder, tempHolder, feelsHolder, conditionHolder, humidityHolder, iconHolder));
                 }
             }
 

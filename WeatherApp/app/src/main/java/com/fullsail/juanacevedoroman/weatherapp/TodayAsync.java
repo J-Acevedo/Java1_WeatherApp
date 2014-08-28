@@ -2,6 +2,7 @@ package com.fullsail.juanacevedoroman.weatherapp;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -142,7 +143,10 @@ public class TodayAsync extends AsyncTask<String, Integer, String> {
         return null;
     }
 
+    @Override
+    protected void onPostExecute(String s) {
 
+        Log.d("DATA", today_data.get(0).condition);
 
-
+    }
 }

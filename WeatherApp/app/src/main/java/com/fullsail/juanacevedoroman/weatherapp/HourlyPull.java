@@ -17,6 +17,16 @@ public class HourlyPull {
     public String humidityPull;
     public String icon_urlPull;
 
+    /**
+     *
+     * @param _pretty
+     * @param _civil
+     * @param _temp
+     * @param _feelsLike
+     * @param _condition
+     * @param _humidity
+     * @param _icon
+     */
     public HourlyPull(String _pretty, String _civil, String _temp, String _feelsLike, String _condition, String _humidity, String _icon){
 
         prettyPull = _pretty;
