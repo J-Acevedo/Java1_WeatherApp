@@ -52,7 +52,7 @@ public class CurrentAdapter extends BaseAdapter {
         }
 
         // object item based on the position
-        if (mlayout == R.layout.daylistcell) {
+        if (mlayout == R.layout.current_list_cell) {
 
             TodayObject item = getItem(position);
 
