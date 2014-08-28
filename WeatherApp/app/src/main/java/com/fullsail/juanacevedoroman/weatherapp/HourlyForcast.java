@@ -1,15 +1,10 @@
 package com.fullsail.juanacevedoroman.weatherapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
-
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -22,14 +17,21 @@ import java.util.ArrayList;
  */
 public class HourlyForcast extends AsyncTask<String, Integer, String>{
 
-
-        HourlyAdapter adapter;
-        ArrayList<HourlyPull> hourPop = new ArrayList<HourlyPull>();
+    HourlyAdapter adapter;
+    ArrayList<HourlyPull> hourPop = new ArrayList<HourlyPull>();
     HttpURLConnection hourly_Connection;
 
     JSONObject FCTTIME;
     JSONObject temp;
     JSONObject feelsLike;
+
+    String prettyHolder;
+    String civilHolder;
+    String tempHolder;
+    String conditionHolder;
+    String iconHolder;
+    String humidityHolder;
+    String feelsHolder;
 
 
     @Override
@@ -77,44 +79,34 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
                        FCTTIME = houroBJ.getJSONObject("FCTTIME");
 
                         if (FCTTIME.has("pretty")){
-                            String prettyHolder = houroBJ.getString("pretty");
+                            prettyHolder = houroBJ.getString("pretty");
                         }
 
                         if (FCTTIME.has("civil")){
-                            String civilHolder = houroBJ.getString("civil");
+                            civilHolder = houroBJ.getString("civil");
                         }
-
                     }
 
-
-
                     if (houroBJ.has("temp")){
-
                         temp = houroBJ.getJSONObject("temp");
 
-
                         if (temp.has("english")){
-                            String tempHolder = houroBJ.getString("english");
+                            tempHolder = houroBJ.getString("english");
                         }
 
                     }
 
                     if (houroBJ.has("condition")){
-
-                        //condition = houroBJ.getJSONObject("condition");
-
-
-                       String conditionHolder =  houroBJ.getString("condition");
-
+                       conditionHolder =  houroBJ.getString("condition");
 
                     }
 
                     if (houroBJ.has("icon_url")){
-                        String iconHolder = houroBJ.getString("icon_url");
+                        iconHolder = houroBJ.getString("icon_url");
                     }
 
                     if (houroBJ.has("humidity")){
-                        String humidityHolder = houroBJ.getString("humidity");
+                        humidityHolder = houroBJ.getString("humidity");
                     }
 
                     if (houroBJ.has("feelslike")){
@@ -122,18 +114,12 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
                         feelsLike = houroBJ.getJSONObject("feelslike");
 
                         if (feelsLike.has("english")){
-                            String feelsHolder = feelsLike.getString("english");
+                            feelsHolder = feelsLike.getString("english");
                         }
 
                     }
-
-
                 }
-
-
             }
-
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -145,10 +131,3 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
         return null;
     }
 }
-
-
-
-
-
-
-
