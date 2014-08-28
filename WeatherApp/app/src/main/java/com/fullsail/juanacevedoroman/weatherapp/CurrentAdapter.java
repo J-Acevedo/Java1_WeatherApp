@@ -56,18 +56,16 @@ public class CurrentAdapter extends BaseAdapter {
 
             TodayObject item = getItem(position);
 
-
-            TextView wind = (TextView) convertView.findViewById(R.id.day_cellDay);
-            TextView pressure = (TextView) convertView.findViewById(R.id.day_cellHigh);
+/*
+            TextView wind = (TextView) convertView.findViewById(R.id.current_theInfo);
+            TextView pressure = (TextView) convertView.findViewById(R.id. c);
             TextView visibility = (TextView) convertView.findViewById(R.id.day_cellDay);
             TextView dew = (TextView) convertView.findViewById(R.id.day_cellHigh);
-            TextView precip = (TextView) convertView.findViewById(R.id.day_cellLow);
+            */
+            TextView precip = (TextView) convertView.findViewById(R.id.current_theInfo);
 
 
-            wind.setText(item.currentInfo.get("wind"));
-            pressure.setText(item.currentInfo.get("pressure"));
-            visibility.setText(item.currentInfo.get("visibility"));
-            dew.setText(item.currentInfo.get("dew"));
+
             precip.setText(item.currentInfo.get("precip"));
 
 

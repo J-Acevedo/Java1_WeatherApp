@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,11 +6,96 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MyActivity">
+    tools:context=".MyActivity"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:weightSum="2">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="city,xx"
+            android:textSize="35sp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="4dp"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.loopj.android.image.SmartImageView
+                android:id="@+id/current_icon"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
+
+            <TextView
+                android:id="@+id/current_condition"
+                android:layout_width ="wrap_content"
+                android:layout_height ="96dp"
+                android:layout_marginBottom ="4dp"
+                android:layout_marginTop ="4dp"
+                android:layout_marginLeft ="4dp"
+                android:layout_marginRight ="4dp"
+                android:gravity="center|left"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:textSize="35sp"
+                android:text="text"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/current_temp"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom ="4dp"
+            android:layout_marginTop ="4dp"
+            android:layout_marginLeft ="4dp"
+            android:layout_marginRight ="4dp"
+            android:text="text"
+            android:gravity="top"
+            android:textSize="35sp"/>
+
+        <TextView
+            android:id="@+id/current_lastUpdate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center|left"
+            android:layout_marginBottom ="4dp"
+            android:layout_marginTop ="4dp"
+            android:layout_marginLeft ="4dp"
+            android:layout_marginRight ="4dp"
+            android:textSize="14sp"
+            android:text="Last updated on this day and this time"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/current_List"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

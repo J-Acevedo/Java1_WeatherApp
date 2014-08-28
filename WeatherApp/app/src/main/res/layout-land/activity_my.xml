@@ -20,10 +20,11 @@
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Orlando,FL"
+            android:text="city,xx"
             android:textSize="35sp"
             android:layout_marginBottom="4dp"
             android:layout_marginRight="4dp"
+            android:id="@+id/city"
             />
 
         <LinearLayout
@@ -52,7 +53,7 @@
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:textSize="35sp"
-                android:text="Clear"
+                android:text="text"
                 />
 
         </LinearLayout>
@@ -65,7 +66,7 @@
             android:layout_marginTop ="4dp"
             android:layout_marginLeft ="4dp"
             android:layout_marginRight ="4dp"
-            android:text="85.6 F (29.8 C)"
+            android:text="text"
             android:gravity="top"
             android:textSize="35sp"/>
 

@@ -21,9 +21,11 @@ import java.util.ArrayList;
 
 public class TodayAsync extends AsyncTask<String, Integer, String> {
 
+
+
     protected Context context;
 
-    public ArrayList<TodayObject> today_data;
+    public ArrayList<TodayObject> today_data = null;
 
     protected String today_JSON;
 
@@ -145,8 +147,12 @@ public class TodayAsync extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String s) {
+        MyActivity activity = (MyActivity)context;
+        activity.todayData.addAll(0,today_data);
 
-        Log.d("DATA", today_data.get(0).condition);
+        activity.loadCurruentUI(0);
+
+        Log.d("COUNT", ""+today_data.size());
 
     }
 }
