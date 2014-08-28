@@ -10,18 +10,21 @@ import android.widget.TextView;
 import com.loopj.android.image.SmartImageView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
- * Created by davidamalfitano on 8/28/14.
+ * Created by juanacevedoroman on 8/28/14.
  */
-public class HourlyAdapter extends BaseAdapter {
+
+public class DailyAdapter extends BaseAdapter {
+
 
     private final long ID_CONSTANT = 0x0000;
     private Context mContext;
-    private ArrayList<HourlyPull> mObjects;
+    private ArrayList<TenDayObject> mObjects;
     private int mlayout;
 
-    public HourlyAdapter(Context c, ArrayList<HourlyPull> objects, int _layout) {
+    public DailyAdapter(Context c, ArrayList<TenDayObject> objects, int _layout) {
         mContext = c;
         mObjects = objects;
         mlayout = _layout;
@@ -35,7 +38,7 @@ public class HourlyAdapter extends BaseAdapter {
     }
 
     @Override
-    public HourlyPull getItem(int position) {
+    public TenDayObject getItem(int position) {
         return mObjects.get(position);
     }
 
@@ -52,25 +55,25 @@ public class HourlyAdapter extends BaseAdapter {
         }
 
         // object item based on the position
-        if (mlayout == R.layout.hour_list_cell) {
+        if (mlayout == R.layout.daylistcell) {
 
-            HourlyPull item = getItem(position);
-
-
-            SmartImageView myImage = (SmartImageView) convertView.findViewById(R.id.hour_cellImage);
-            TextView civilT = (TextView) convertView.findViewById(R.id.hour_cellTime);
-            TextView tempT = (TextView) convertView.findViewById(R.id.hour_cellTemp);
+            TenDayObject item = getItem(position);
 
 
+            SmartImageView myImage = (SmartImageView) convertView.findViewById(R.id.day_cellImage);
+            TextView day = (TextView) convertView.findViewById(R.id.day_cellDay);
+            TextView hi = (TextView) convertView.findViewById(R.id.day_cellHigh);
+            TextView low = (TextView) convertView.findViewById(R.id.day_cellLow);
 
-            myImage.setImageUrl(item.icon_urlPull);
-            civilT.setText(item.civilPull);
-            tempT.setText("High: " + item.tempPull);
-
+            myImage.setImageUrl(item.iconUrl);
+            day.setText(item.weekday);
+            hi.setText("High: " + item.high);
+            low.setText("Low: " + item.low);
 
 
         }
 
         return convertView;
     }
+
 }
