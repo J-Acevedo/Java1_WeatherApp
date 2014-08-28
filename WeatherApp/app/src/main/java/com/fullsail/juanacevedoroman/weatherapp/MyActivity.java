@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -21,8 +20,10 @@ public class MyActivity extends Activity {
     TextView currentCondition;
     TextView currentTemp;
     TextView currentLastupdate;
-    ListView currentList;
 
+    SmartImageView currentCellImage;
+    TextView currentCellTitle;
+    TextView currentCellDesc;
 
     //Hourly Views
     SmartImageView hourDetailImage;
@@ -30,9 +31,10 @@ public class MyActivity extends Activity {
     TextView hourTemp;
     TextView hourFeelLike;
     TextView hourLongDate;
-    ListView hourList;
 
-
+    SmartImageView hourCellImage;
+    TextView hourCellTitle;
+    TextView hourCellDesc;
 
     //Daily Views
     SmartImageView dayDetailImage;
@@ -40,8 +42,11 @@ public class MyActivity extends Activity {
     TextView dayHighTemp;
     TextView dayLowTemp;
     TextView dayLastUpdated;
-    ListView dayList;
 
+    SmartImageView dayCellImage;
+    TextView dayCellTitle;
+    TextView dayCellHigh;
+    TextView dayCellLow;
 
 
     // Ten Day Async
@@ -53,14 +58,6 @@ public class MyActivity extends Activity {
     ArrayList<TodayObject> todayData = new ArrayList<TodayObject>();
     TodayAsync todayAsync;
 
-    //Day 2 Day task
-    ArrayList<HourlyPull> hourlyData = new ArrayList<HourlyPull>();
-    HourlyForcast dayAsync;
-
-    //Adapters
-    CurrentAdapter currentAdapter;
-    HourlyAdapter hourlyAdapter;
-    DailyAdapter dailyAdapter;
 
 
 
@@ -71,24 +68,26 @@ public class MyActivity extends Activity {
         //Locks orientation in Landsacpe
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        // Today ForeCast //
-        todayAsync = new TodayAsync(this, todayData);
-        todayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/conditions/q/FL/orlando.json");
-
         //Current Views
         currentDetailImage = (SmartImageView)findViewById(R.id.current_icon);
         currentCondition = (TextView)findViewById(R.id.current_condition);
         currentTemp = (TextView)findViewById(R.id.current_temp);
         currentLastupdate= (TextView)findViewById(R.id.current_lastUpdate);
-        currentList = (ListView)findViewById(R.id.current_List);
-/*
+
+        currentCellImage = (SmartImageView)findViewById(R.id.current_cellImage);
+        currentCellTitle = (TextView)findViewById(R.id.current_info_title);
+        currentCellDesc = (TextView)findViewById(R.id.current_theInfo);
+
         //Hourly Views
         hourDetailImage = (SmartImageView)findViewById(R.id.hour_image);
         hourCondition = (TextView)findViewById(R.id.hour_condition);
         hourTemp = (TextView)findViewById(R.id.hour_temp);
         hourFeelLike = (TextView)findViewById(R.id.hour_feelLike);
         hourLongDate = (TextView)findViewById(R.id.hour_long_date);
-        hourList = (ListView)findViewById(R.id.hour_List);
+
+        hourCellImage = (SmartImageView)findViewById(R.id.hour_cellImage);
+        hourCellTitle = (TextView)findViewById(R.id.hour_cellTime);
+        hourCellDesc = (TextView)findViewById(R.id.hour_cellTemp);
 
         //Daily Views
         dayDetailImage = (SmartImageView)findViewById(R.id.day_icon);
@@ -96,30 +95,24 @@ public class MyActivity extends Activity {
         dayHighTemp = (TextView)findViewById(R.id.day_hi_temp);
         dayLowTemp = (TextView)findViewById(R.id.day_lo_temp);
         dayLastUpdated = (TextView)findViewById(R.id.day_last_updated);
-        dayList = (ListView)findViewById(R.id.day_List);
 
-        currentAdapter = new CurrentAdapter(this, todayData, R.layout.current_list_cell);
-        hourlyAdapter = new HourlyAdapter(this, hourlyData, R.layout.hour_list_cell);
-        dailyAdapter = new DailyAdapter(this, tenDayData, R.layout.daylistcell);
-*/
+        dayCellImage = (SmartImageView)findViewById(R.id.day_cellImage);
+        dayCellTitle = (TextView)findViewById(R.id.day_cellDay);
+        dayCellHigh = (TextView)findViewById(R.id.day_cellHigh);
+        dayCellLow = (TextView)findViewById(R.id.day_cellLow);
 
 
-/*
+        // Today ForeCast //
+        todayAsync = new TodayAsync(this, todayData);
+        todayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/conditions/q/FL/orlando.json");
+
+
         // Ten Day ForeCast //
         tenDayAsync = new TenDayForecast(this, tenDayData);
         tenDayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/forecast10day/q/FL/Orlando.json");
 
         // Day to Day ForeCast //
-        dayAsync = new HourlyForcast(this, hourlyData);
-        dayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/hourly10day/q/FL/Orlando.json");
 
-      //  currentDetailImage.setImageUrl(todayData.get(0).iconURL);
-        currentCondition.setText(todayData.get(0).condition);
-        currentTemp.setText(todayData.get(0).temperature);
-        currentLastupdate.setText(todayData.get(0).observationTime);
-        currentList.setAdapter(currentAdapter);
-
-        */
     }
 
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
