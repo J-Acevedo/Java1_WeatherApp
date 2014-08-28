@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.loopj.android.image.SmartImageView
+                android:id="@+id/current_icon"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginBottom="4dp"
@@ -40,6 +41,7 @@
                 android:layout_marginRight="4dp"/>
 
             <TextView
+                android:id="@+id/current_condition"
                 android:layout_width ="wrap_content"
                 android:layout_height ="96dp"
                 android:layout_marginBottom ="4dp"
@@ -56,6 +58,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/current_temp"
             android:layout_width="fill_parent"
             android:layout_height="48dp"
             android:layout_marginBottom ="4dp"
@@ -67,6 +70,7 @@
             android:textSize="35sp"/>
 
         <TextView
+            android:id="@+id/current_lastUpdate"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center|left"
