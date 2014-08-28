@@ -2,7 +2,6 @@ package com.fullsail.juanacevedoroman.weatherapp;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -21,27 +20,27 @@ import java.util.ArrayList;
 
 public class TodayAsync extends AsyncTask<String, Integer, String> {
 
-    Context context;
+    protected Context context;
 
-    ArrayList<TodayObject> today_data;
+    public ArrayList<TodayObject> today_data;
 
-    String today_JSON;
+    protected String today_JSON;
 
-    String city;
-    String condition;
-    String temperature;
-    String humidity;
-    String feelsLike;
-    String iconURL;
-    String observationTime;
-    int wind;
-    String windMph;
-    String pressure;
-    String visability;
-    String dewPoint;
-    String precipToday;
+    protected String city;
+    protected String condition;
+    protected String temperature;
+    protected String humidity;
+    protected String feelsLike;
+    protected String iconURL;
+    protected String observationTime;
+    private int wind;
+    protected String windMph;
+    protected String pressure;
+    protected String visability;
+    protected String dewPoint;
+    protected String precipToday;
 
-    HttpURLConnection today_Connection;
+    private HttpURLConnection today_Connection;
 
 
     public TodayAsync(Context context, ArrayList<TodayObject> today_data) {
@@ -116,8 +115,10 @@ public class TodayAsync extends AsyncTask<String, Integer, String> {
             }
 
 
+            /*
             Log.d("DUTTON", "\n"+city+"\n"+temperature+"\n"+condition+"\n"+humidity+"\n"+feelsLike+"\n"+
-                    iconURL+"\n"+observationTime+"\n"+windMph+"\n"+pressure+"\n"+visability+"\n"+dewPoint+"\n"+precipToday);
+            iconURL+"\n"+observationTime+"\n"+windMph+"\n"+pressure+"\n"+visability+"\n"+dewPoint+"\n"+precipToday);
+            */
 
             today_data.add(new TodayObject(city, temperature, condition, humidity, feelsLike, iconURL,
                     observationTime, windMph, pressure, visability, dewPoint, precipToday));
@@ -141,15 +142,7 @@ public class TodayAsync extends AsyncTask<String, Integer, String> {
         return null;
     }
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
 
 
-    }
 
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-    }
 }
