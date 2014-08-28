@@ -77,7 +77,7 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
 
             if (totalHour.has("hourly_forecast")){
 
-                JSONArray hourlyForcast = new JSONArray("hourly_forecast");
+                JSONArray hourlyForcast = totalHour.getJSONArray("hourly_forecast");
 
                 for (int hourIndex = 0; hourIndex <hourlyForcast.length(); hourIndex ++){
 
