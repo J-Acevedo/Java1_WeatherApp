@@ -1,5 +1,6 @@
 package com.fullsail.juanacevedoroman.weatherapp;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,12 +13,17 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by Matt on 8/28/14.
  */
 
-public class TodayForecast extends AsyncTask<String, Integer, String> {
+public class TodayAsync extends AsyncTask<String, Integer, String> {
+
+    Context context;
+
+    ArrayList<TodayObject> today_data;
 
     String today_JSON;
 
@@ -37,6 +43,13 @@ public class TodayForecast extends AsyncTask<String, Integer, String> {
 
     HttpURLConnection today_Connection;
 
+
+    public TodayAsync(Context context, ArrayList<TodayObject> today_data) {
+
+        this.context = context;
+        this.today_data = today_data;
+
+    }
 
     @Override
     protected String doInBackground(String... params) {
@@ -67,49 +80,58 @@ public class TodayForecast extends AsyncTask<String, Integer, String> {
             if ( display_location.has("full") ) {
                 city = display_location.getString("full");
             }
-            if ( display_location.has("temperature_string") ) {
-                temperature = display_location.getString("temperature_string");
+            if ( current_observation.has("temperature_string") ) {
+                temperature = current_observation.getString("temperature_string");
             }
-            if (display_location.has("weather")){
-                condition = display_location.getString("weather");
+            if (current_observation.has("weather")){
+                condition = current_observation.getString("weather");
             }
-            if ( display_location.has("relative_humidity") ) {
-                humidity = display_location.getString("relative_humidity");
+            if ( current_observation.has("relative_humidity") ) {
+                humidity = current_observation.getString("relative_humidity");
             }
-            if (display_location.has("feelslike_string")){
-                feelsLike = display_location.getString("feelslike_string");
+            if (current_observation.has("feelslike_string")){
+                feelsLike = current_observation.getString("feelslike_string");
             }
-            if (display_location.has("icon_url") ){
-                iconURL = display_location.getString("icon_url");
+            if (current_observation.has("icon_url") ){
+                iconURL = current_observation.getString("icon_url");
             }
-            if ( display_location.has("observation_time") ){
-                observationTime = display_location.getString("ObservationTime");
+            if ( current_observation.has("observation_time") ){
+                observationTime = current_observation.getString("observation_time");
             }
-            if ( display_location.has("wind_mph") ) {
-                wind = display_location.getInt("wind_mph");
+            if ( current_observation.has("wind_mph") ) {
+                wind = current_observation.getInt("wind_mph");
                 windMph = Integer.toString(wind);
             }
-            if (display_location.has("pressure_in")){
-                pressure = display_location.getString("pressure_in");
+            if (current_observation.has("pressure_in")){
+                pressure = current_observation.getString("pressure_in");
             }
-            if (display_location.has("visibility_mi") ){
-                visability = display_location.getString("visibility_mi");
+            if (current_observation.has("visibility_mi") ){
+                visability = current_observation.getString("visibility_mi");
             }
-            if ( display_location.has("dewpoint_string") ){
-                dewPoint = display_location.getString("dewpoint_string");
+            if ( current_observation.has("dewpoint_string") ){
+                dewPoint = current_observation.getString("dewpoint_string");
             }
-            if ( display_location.has("precip_today_string") ){
-                precipToday = display_location.getString("precip_today_string");
+            if ( current_observation.has("precip_today_string") ){
+                precipToday = current_observation.getString("precip_today_string");
             }
 
+
+            Log.d("DUTTON", "\n"+city+"\n"+temperature+"\n"+condition+"\n"+humidity+"\n"+feelsLike+"\n"+
+                    iconURL+"\n"+observationTime+"\n"+windMph+"\n"+pressure+"\n"+visability+"\n"+dewPoint+"\n"+precipToday);
+
+            today_data.add(new TodayObject(city, temperature, condition, humidity, feelsLike, iconURL,
+                    observationTime, windMph, pressure, visability, dewPoint, precipToday));
 
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
+
         } catch (IOException e ){
             e.printStackTrace();
+
         } catch (JSONException e){
             e.printStackTrace();
+
         } finally {
 
             today_Connection.disconnect();
@@ -123,7 +145,7 @@ public class TodayForecast extends AsyncTask<String, Integer, String> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        Log.d("DUTTON", "today forecast");
+
     }
 
     @Override
