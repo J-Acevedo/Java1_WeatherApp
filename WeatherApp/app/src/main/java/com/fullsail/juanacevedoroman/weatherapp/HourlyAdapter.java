@@ -16,18 +16,14 @@ import java.util.ArrayList;
  */
 public class HourlyAdapter extends BaseAdapter {
 
-    private final long ID_CONSTANT = 0x0000;
     private Context mContext;
     private ArrayList<HourlyPull> mObjects;
-    private int mlayout;
+    private static final long ID_CONSTANT = 0x010000000;
 
-    public HourlyAdapter(Context c, ArrayList<HourlyPull> objects, int _layout) {
+    public HourlyAdapter(Context c, ArrayList objects){
         mContext = c;
         mObjects = objects;
-        mlayout = _layout;
-
     }
-
 
     @Override
     public int getCount() {
@@ -35,41 +31,27 @@ public class HourlyAdapter extends BaseAdapter {
     }
 
     @Override
-    public HourlyPull getItem(int position) {
-        return mObjects.get(position);
+    public Object getItem(int pos) {
+        return mObjects.get(pos);
     }
 
     @Override
-    public long getItemId(int position) {
-        return ID_CONSTANT + position;
+    public long getItemId(int pos) {
+        return ID_CONSTANT + pos;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int pos, View convertView, ViewGroup parent) {
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(mlayout, parent, false);
+        if (convertView == null){
+            convertView = LayoutInflater.from(mContext).inflate(
+                    R.layout.hourly_layout, parent, false);
         }
 
-        // object item based on the position
-        if (mlayout == R.layout.hour_list_cell) {
+        TextView timeT = (TextView)convertView.findViewById(R.id.hour_cellTime);
+        TextView tempT = (TextView)convertView.findViewById(R.id.hour_cellTemp);
+        SmartImageView imageSI = (SmartImageView)convertView.findViewById(R.id.hour_cellImage);
 
-            HourlyPull item = getItem(position);
-
-
-            SmartImageView myImage = (SmartImageView) convertView.findViewById(R.id.hour_cellImage);
-            TextView civilT = (TextView) convertView.findViewById(R.id.hour_cellTime);
-            TextView tempT = (TextView) convertView.findViewById(R.id.hour_cellTemp);
-
-
-
-            myImage.setImageUrl(item.icon_urlPull);
-            civilT.setText(item.civilPull);
-            tempT.setText("High: " + item.tempPull);
-
-
-
-        }
 
         return convertView;
     }
