@@ -62,6 +62,9 @@ public class MyActivity extends Activity {
     HourlyAdapter hourlyAdapter;
     DailyAdapter dailyAdapter;
 
+    //PageAdapter
+
+    
 
 
     @Override
