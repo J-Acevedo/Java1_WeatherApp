@@ -13,6 +13,8 @@ public class MyActivity extends Activity {
     ArrayList<TenDayObject> tenDayData = new ArrayList<TenDayObject>();
     TenDayForecast tenDayAsync;
 
+
+    // Today async task done by Matt Dutton
     ArrayList<TodayObject> todayData = new ArrayList<TodayObject>();
     TodayAsync todayAsync;
 

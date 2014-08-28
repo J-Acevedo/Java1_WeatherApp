@@ -1,11 +1,7 @@
 package com.fullsail.juanacevedoroman.weatherapp;
 
-import android.content.Context;
-
-import java.util.ArrayList;
-
 /**
- * Created by Matt on 8/28/14.
+ * Created by Matthew Dutton on 8/28/14.
  */
 public class TodayObject {
 
@@ -44,11 +40,4 @@ public class TodayObject {
 
     }
 
-
-    public TodayObject(Context context, ArrayList<TodayObject> todayData) {
-
-
-
-
-    }
 }

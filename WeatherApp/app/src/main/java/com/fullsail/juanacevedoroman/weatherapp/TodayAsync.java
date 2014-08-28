@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by Matt on 8/28/14.
+ * Created by Matthew Dutton on 8/28/14.
  */
 
 public class TodayAsync extends AsyncTask<String, Integer, String> {
