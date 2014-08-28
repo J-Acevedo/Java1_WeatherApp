@@ -3,6 +3,8 @@ package com.fullsail.juanacevedoroman.weatherapp;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 
@@ -46,6 +48,8 @@ public class MyActivity extends Activity {
     TextView dayCellHigh;
     TextView dayCellLow;
 
+
+    // Ten Day Async
     ArrayList<TenDayObject> tenDayData = new ArrayList<TenDayObject>();
     TenDayForecast tenDayAsync;
 
@@ -53,6 +57,8 @@ public class MyActivity extends Activity {
     // Today async task done by Matt Dutton
     ArrayList<TodayObject> todayData = new ArrayList<TodayObject>();
     TodayAsync todayAsync;
+
+
 
 
     @Override
@@ -97,19 +103,23 @@ public class MyActivity extends Activity {
 
 
         // Today ForeCast //
-
         todayAsync = new TodayAsync(this, todayData);
         todayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/conditions/q/FL/orlando.json");
 
 
         // Ten Day ForeCast //
-
         tenDayAsync = new TenDayForecast(this, tenDayData);
         tenDayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/forecast10day/q/FL/Orlando.json");
 
-        // Ten Day ForeCast //
+        // Day to Day ForeCast //
 
     }
 
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        }
+    };
 
 }
