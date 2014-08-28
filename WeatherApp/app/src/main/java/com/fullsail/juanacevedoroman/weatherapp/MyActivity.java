@@ -3,12 +3,10 @@ package com.fullsail.juanacevedoroman.weatherapp;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.loopj.android.image.SmartImageView;
@@ -20,7 +18,6 @@ public class MyActivity extends Activity {
 
     //Current Views
     SmartImageView currentDetailImage;
-    TextView city;
     TextView currentCondition;
     TextView currentTemp;
     TextView currentLastupdate;
@@ -53,7 +50,7 @@ public class MyActivity extends Activity {
 
 
     // Today async task done by Matt Dutton
-    static ArrayList<TodayObject> todayData = new ArrayList<TodayObject>();
+    ArrayList<TodayObject> todayData = new ArrayList<TodayObject>();
     TodayAsync todayAsync;
 
     //Day 2 Day task
@@ -61,7 +58,7 @@ public class MyActivity extends Activity {
     HourlyForcast dayAsync;
 
     //Adapters
-    static CurrentAdapter currentAdapter;
+    CurrentAdapter currentAdapter;
     HourlyAdapter hourlyAdapter;
     DailyAdapter dailyAdapter;
 
@@ -70,29 +67,20 @@ public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Locks orientation in Landsacpe
-       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_my);
-
-
-        //Current Views
-        currentDetailImage = (SmartImageView) findViewById(R.id.current_icon);
-        city = (TextView)findViewById(R.id.city);
-        currentCondition = (TextView)findViewById(R.id.current_temp);
-        currentTemp = (TextView)findViewById(R.id.current_condition);
-        currentLastupdate = (TextView)findViewById(R.id.current_lastUpdate);
-        currentList = (ListView)findViewById(R.id.current_List);
-        currentAdapter = new CurrentAdapter(this, todayData, R.layout.current_list_cell);
-
+        //Locks orientation in Landsacpe
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         // Today ForeCast //
         todayAsync = new TodayAsync(this, todayData);
         todayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/conditions/q/FL/orlando.json");
 
-
-
-
-
+        //Current Views
+        currentDetailImage = (SmartImageView)findViewById(R.id.current_icon);
+        currentCondition = (TextView)findViewById(R.id.current_condition);
+        currentTemp = (TextView)findViewById(R.id.current_temp);
+        currentLastupdate= (TextView)findViewById(R.id.current_lastUpdate);
+        currentList = (ListView)findViewById(R.id.current_List);
 /*
         //Hourly Views
         hourDetailImage = (SmartImageView)findViewById(R.id.hour_image);
@@ -110,7 +98,7 @@ public class MyActivity extends Activity {
         dayLastUpdated = (TextView)findViewById(R.id.day_last_updated);
         dayList = (ListView)findViewById(R.id.day_List);
 
-
+        currentAdapter = new CurrentAdapter(this, todayData, R.layout.current_list_cell);
         hourlyAdapter = new HourlyAdapter(this, hourlyData, R.layout.hour_list_cell);
         dailyAdapter = new DailyAdapter(this, tenDayData, R.layout.daylistcell);
 */
@@ -132,37 +120,6 @@ public class MyActivity extends Activity {
         currentList.setAdapter(currentAdapter);
 
         */
-
-    }
-
-    public void loadCurruentUI(int pos){
-        if (todayData.size() > 0) {
-            Log.d("CON", todayData.get(pos).condition.toString());
-            Log.d("TEMP", todayData.get(pos).temperature.toString());
-            Log.d("OBS", todayData.get(pos).observationTime.toString());
-
-            if (currentCondition != null) {
-
-                currentDetailImage.setImageUrl(todayData.get(pos).iconURL);
-                city.setText(todayData.get(pos).city);
-                currentCondition.setText(todayData.get(pos).condition.toString());
-                currentTemp.setText(todayData.get(pos).temperature.toString());
-                currentLastupdate.setText(todayData.get(pos).observationTime.toString());
-                currentList.setAdapter(currentAdapter);
-           } else {
-
-                Log.d("NULL", todayData.get(pos).condition.toString());
-            }
-
-
-        }else {
-
-           Log.d("EMPTY", "Array is empty");
-
-        }
-
-        Log.d("COUNT", "Array local " +todayData.size());
-
     }
 
     AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {

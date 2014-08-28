@@ -20,7 +20,7 @@ public class HourlyAdapter extends BaseAdapter {
     private ArrayList<HourlyPull> mObjects;
     private static final long ID_CONSTANT = 0x010000000;
 
-    public HourlyAdapter(Context c, ArrayList objects){
+    public HourlyAdapter(Context c, ArrayList objects, int hour_list_cell){
         mContext = c;
         mObjects = objects;
     }

@@ -7,8 +7,6 @@ import java.util.HashMap;
  */
 public class TodayObject {
 
-
-
     String city;
     String condition;
     String temperature;
@@ -23,7 +21,6 @@ public class TodayObject {
     String precipToday;
 
     HashMap<String,String> currentInfo = new HashMap<String, String>();
-
 
     public TodayObject(String _city, String _condition, String _temperature, String _humidity, String _feelsLike, String _iconURL, String _observationTime, String _windMph, String _pressure, String _visability, String _dewPoint, String _precipToday) {
 

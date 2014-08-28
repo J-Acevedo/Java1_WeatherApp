@@ -46,32 +46,17 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
     @Override
     protected String doInBackground(String... strings) {
 
-
         URL hourly_url = null;
+
         try {
+
             hourly_url = new URL( strings[0]);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        try {
             hourly_Connection = (HttpURLConnection) hourly_url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             hourly_Connection.connect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        try {
             InputStream hourly_Input = hourly_Connection.getInputStream();
             String hourlyPuller = IOUtils.toString(hourly_Input);
             hourly_Input.close();
-
-            hourly_Connection.disconnect();
 
             JSONObject totalHour = new JSONObject(hourlyPuller);
 
@@ -146,6 +131,8 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
             e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+        }finally {
+            hourly_Connection.disconnect();
         }
 
 
