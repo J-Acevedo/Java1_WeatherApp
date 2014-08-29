@@ -89,6 +89,10 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
                      * @param _icon
                      */
 
+                if (x == 23){
+                    return null;
+                }
+
                     data.add(new HourlyPull(prettyHolder, civilHolder, tempHolder, feelsHolder, conditionHolder, humidityHolder, iconHolder));
                 }
 
@@ -114,7 +118,7 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
 
         Log.d("DATA", ""+data.size());
 
-        activity.loadUI(0,1);
+        activity.loadUI(0,1,true);
 
     }
 }

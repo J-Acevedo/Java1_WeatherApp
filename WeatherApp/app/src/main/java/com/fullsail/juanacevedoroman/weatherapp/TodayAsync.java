@@ -150,7 +150,7 @@ public class TodayAsync extends AsyncTask<String, Integer, String> {
 
         activity.todayData.addAll(0,today_data);
 
-        activity.loadUI(0,0);
+        activity.loadUI(0,0,true);
 
     }
 }

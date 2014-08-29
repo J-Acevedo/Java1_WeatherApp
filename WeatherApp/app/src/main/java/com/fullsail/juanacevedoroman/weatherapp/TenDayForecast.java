@@ -123,7 +123,7 @@ public class TenDayForecast extends AsyncTask<String, Integer, String> {
 
         MyActivity activity = (MyActivity)context;
 
-        activity.loadUI(0,2);
+        activity.loadUI(0,2, true);
 
 
     }

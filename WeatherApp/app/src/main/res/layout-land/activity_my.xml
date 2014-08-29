@@ -107,10 +107,10 @@
                   />
 
               <TextView android:id="@+id/current_wind"
-                  android:layout_width="100dp"
+                  android:layout_width="wrap_content"
                   android:layout_height="fill_parent"
                   android:text="text "
-                  android:textSize="30sp"
+                  android:textSize="23sp"
                   />
 
               </LinearLayout>
@@ -122,17 +122,17 @@
               >
 
               <TextView
-                  android:layout_width="150dp"
+                  android:layout_width="125dp"
                   android:layout_height="fill_parent"
                   android:text="Pressure: "
                   android:textSize="25sp"
                   />
 
               <TextView android:id="@+id/current_pressure"
-                  android:layout_width="100dp"
+                  android:layout_width="wrap_content"
                   android:layout_height="fill_parent"
                   android:text="text "
-                  android:textSize="30sp"
+                  android:textSize="23sp"
                   />
 
           </LinearLayout>
@@ -144,17 +144,17 @@
             >
 
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="fill_parent"
                 android:text="Visibility: "
                 android:textSize="25sp"
                 />
 
             <TextView android:id="@+id/current_visibility"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="text "
-                android:textSize="30sp"
+                android:textSize="23sp"
                 />
 
         </LinearLayout>
@@ -166,17 +166,17 @@
             >
 
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="fill_parent"
-                android:text="DewPoint: "
+                android:text="DewPt: "
                 android:textSize="25sp"
                 />
 
             <TextView android:id="@+id/current_Dew"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="text "
-                android:textSize="30sp"
+                android:textSize="23sp"
                 />
 
         </LinearLayout>
@@ -188,17 +188,17 @@
             >
 
             <TextView
-                android:layout_width="150dp"
+                android:layout_width="125dp"
                 android:layout_height="fill_parent"
-                android:text="Precipitation: "
+                android:text="Precip.: "
                 android:textSize="25sp"
                 />
 
             <TextView android:id="@+id/current_precip"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="text "
-                android:textSize="30sp"
+                android:textSize="23sp"
                 />
 
         </LinearLayout>
