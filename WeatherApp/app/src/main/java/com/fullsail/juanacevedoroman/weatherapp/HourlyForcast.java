@@ -2,6 +2,8 @@ package com.fullsail.juanacevedoroman.weatherapp;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,60 +60,24 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
             String hourlyPuller = IOUtils.toString(hourly_Input);
             hourly_Input.close();
 
-            JSONObject totalHour = new JSONObject(hourlyPuller);
+            JSONObject response = new JSONObject(hourlyPuller);
 
-            if (totalHour.has("hourly_forecast")){
 
-                JSONArray hourlyForcast = totalHour.getJSONArray("hourly_forecast");
 
-                for (int hourIndex = 0; hourIndex <hourlyForcast.length(); hourIndex ++){
+                JSONArray hourlyForcast = response.getJSONArray("hourly_forecast");
 
-                    JSONObject houroBJ = hourlyForcast.getJSONObject(hourIndex);
+                for (int x = 0; x < hourlyForcast.length(); x++){
 
-                    if (houroBJ.has("FCTTIME")){
+                    JSONObject hourOBJ = hourlyForcast.getJSONObject(x);
 
-                       FCTTIME = houroBJ.getJSONObject("FCTTIME");
+                    prettyHolder = hourOBJ.getJSONObject("FCTTIME").getString("pretty");
+                    civilHolder = hourOBJ.getJSONObject("FCTTIME").getString("civil");
+                    tempHolder = hourOBJ.getJSONObject("temp").getString("english");
+                    feelsHolder = hourOBJ.getJSONObject("feelslike").getString("english");
+                    conditionHolder = hourOBJ.getString("condition");
+                    humidityHolder = hourOBJ.getString("humidity");
+                    iconHolder = hourOBJ.getString("icon_url");
 
-                        if (FCTTIME.has("pretty")){
-                            prettyHolder = houroBJ.getString("pretty");
-                        }
-
-                        if (FCTTIME.has("civil")){
-                            civilHolder = houroBJ.getString("civil");
-                        }
-                    }
-
-                    if (houroBJ.has("temp")){
-                        temp = houroBJ.getJSONObject("temp");
-
-                        if (temp.has("english")){
-                            tempHolder = houroBJ.getString("english");
-                        }
-
-                    }
-
-                    if (houroBJ.has("condition")){
-                       conditionHolder =  houroBJ.getString("condition");
-
-                    }
-
-                    if (houroBJ.has("icon_url")){
-                        iconHolder = houroBJ.getString("icon_url");
-                    }
-
-                    if (houroBJ.has("humidity")){
-                        humidityHolder = houroBJ.getString("humidity");
-                    }
-
-                    if (houroBJ.has("feelslike")){
-
-                        feelsLike = houroBJ.getJSONObject("feelslike");
-
-                        if (feelsLike.has("english")){
-                            feelsHolder = feelsLike.getString("english");
-                        }
-
-                    }
                     /**
                      *
                      * @param _pretty
@@ -125,7 +91,7 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
 
                     data.add(new HourlyPull(prettyHolder, civilHolder, tempHolder, feelsHolder, conditionHolder, humidityHolder, iconHolder));
                 }
-            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -137,5 +103,18 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
 
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+
+        MyActivity activity = (MyActivity)mContext;
+
+        activity.hourlyData.addAll(0,data);
+
+        Log.d("DATA", ""+data.size());
+
+        activity.loadUI(0,1);
+
     }
 }

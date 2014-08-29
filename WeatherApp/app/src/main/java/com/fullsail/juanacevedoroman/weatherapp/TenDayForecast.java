@@ -120,7 +120,10 @@ public class TenDayForecast extends AsyncTask<String, Integer, String> {
     //OnPostExecute
     @Override
     protected void onPostExecute(String s) {
-        super.onPostExecute(s);
+
+        MyActivity activity = (MyActivity)context;
+
+        activity.loadUI(0,2);
 
 
     }

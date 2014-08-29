@@ -44,10 +44,10 @@ public class TodayAsync extends AsyncTask<String, Integer, String> {
     private HttpURLConnection today_Connection;
 
 
-    public TodayAsync(Context context, ArrayList<TodayObject> today_data) {
+    public TodayAsync(Context context, ArrayList<TodayObject> _today_data) {
 
         this.context = context;
-        this.today_data = today_data;
+        this.today_data = _today_data;
 
     }
 
@@ -146,7 +146,11 @@ public class TodayAsync extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String s) {
 
-        Log.d("DATA", today_data.get(0).condition);
+        MyActivity activity = (MyActivity)context;
+
+        activity.todayData.addAll(0,today_data);
+
+        activity.loadUI(0,0);
 
     }
 }
