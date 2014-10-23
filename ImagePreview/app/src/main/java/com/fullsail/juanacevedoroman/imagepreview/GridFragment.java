@@ -191,7 +191,6 @@ public class GridFragment extends Fragment {
                 e.printStackTrace();
             }
 
-
             return pic;
         }
 
@@ -200,7 +199,7 @@ public class GridFragment extends Fragment {
             super.onPostExecute(bitmap);
 
             savePic(bitmap);
-           // storeImage(bitmap,"lol");
+
 
         }
     }
@@ -209,10 +208,9 @@ public class GridFragment extends Fragment {
     private void savePic(Bitmap _bit){
 
         String imageName = new SimpleDateFormat("MMddyyyy_HHmmss").format(new Date(System.currentTimeMillis()));
-
         File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File myDir = new File(root + "/ImagePreview");
 
-        File myDir = new File(root + "ImagePreview");
         myDir.mkdirs();
 
         File image = new File(myDir, imageName + ".jpg");
@@ -223,7 +221,7 @@ public class GridFragment extends Fragment {
             _bit.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-            scanPhoto(imageName);
+            scanPhoto(image);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -232,11 +230,11 @@ public class GridFragment extends Fragment {
 
     }
 
-    private void scanPhoto(String imageFileName){
+    private void scanPhoto(File imageFileName){
 
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(imageFileName);
-        Uri contentUri = Uri.fromFile(f);
+
+        Uri contentUri = Uri.fromFile(imageFileName);
         mediaScanIntent.setData(contentUri);
         getActivity().sendBroadcast(mediaScanIntent);
     }

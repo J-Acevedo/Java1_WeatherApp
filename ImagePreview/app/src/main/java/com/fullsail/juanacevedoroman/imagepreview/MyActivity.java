@@ -32,7 +32,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class MyActivity extends Activity implements ActionBar.OnNavigationListener, GridFragment.GridFragmentListener {
+public class MyActivity extends Activity implements ActionBar.OnNavigationListener, GridFragment.GridFragmentListener, FavoriteFragment.FavoriteFragmentListener {
 
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
@@ -115,6 +115,11 @@ public class MyActivity extends Activity implements ActionBar.OnNavigationListen
             case 1:
 
 
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, FavoriteFragment.newInstance(),FavoriteFragment.TAG)
+                        .commit();
+
+
                 break;
         }
 
@@ -123,13 +128,24 @@ public class MyActivity extends Activity implements ActionBar.OnNavigationListen
     }
 
     @Override
+    public void viewImageFav(String _s) {
+
+        File root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File myDir = new File(root + "/ImagePreview");
+
+        String loo = myDir.getAbsolutePath();
+
+        Intent view = new Intent(Intent.ACTION_VIEW);
+        view.setDataAndType(Uri.parse("file://" + loo + "/"+ _s),"image/*");
+
+        Log.d("Tag",loo + "/"+ _s);
+
+        startActivity(view);
+
+    }
+
+    @Override
     public void viewImage(String _url) {
-
-
-
-        //File outputDir = getCacheDir(); // context being the Activity pointer
-        //File outputFile = File.createTempFile("prefix", "extension", outputDir);\
-
 
 
 
