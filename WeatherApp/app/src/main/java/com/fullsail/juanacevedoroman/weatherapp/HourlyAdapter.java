@@ -18,14 +18,11 @@ public class HourlyAdapter extends BaseAdapter {
 
     private Context mContext;
     private ArrayList<HourlyPull> mObjects;
-    int mLayout;
-
     private static final long ID_CONSTANT = 0x010000000;
 
     public HourlyAdapter(Context c, ArrayList objects, int hour_list_cell){
         mContext = c;
         mObjects = objects;
-        mLayout = hour_list_cell;
     }
 
     @Override
@@ -34,7 +31,7 @@ public class HourlyAdapter extends BaseAdapter {
     }
 
     @Override
-    public HourlyPull getItem(int pos) {
+    public Object getItem(int pos) {
         return mObjects.get(pos);
     }
 
@@ -48,18 +45,12 @@ public class HourlyAdapter extends BaseAdapter {
 
         if (convertView == null){
             convertView = LayoutInflater.from(mContext).inflate(
-                    mLayout, parent, false);
+                    R.layout.hourly_layout, parent, false);
         }
-
-        HourlyPull item = getItem(pos);
 
         TextView timeT = (TextView)convertView.findViewById(R.id.hour_cellTime);
         TextView tempT = (TextView)convertView.findViewById(R.id.hour_cellTemp);
         SmartImageView imageSI = (SmartImageView)convertView.findViewById(R.id.hour_cellImage);
-
-        timeT.setText(item.civilPull);
-        tempT.setText(item.tempPull + " F");
-        imageSI.setImageUrl(item.icon_urlPull);
 
 
         return convertView;

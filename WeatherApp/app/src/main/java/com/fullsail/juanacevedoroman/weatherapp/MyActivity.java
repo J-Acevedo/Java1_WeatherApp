@@ -3,36 +3,33 @@ package com.fullsail.juanacevedoroman.weatherapp;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.loopj.android.image.SmartImageView;
+//import com.loopj.android.image.SmartImageView;
 import java.util.ArrayList;
 
 
 public class MyActivity extends Activity {
 
+    LinearLayout back;
+
     //Current Views
     TextView city;
-    SmartImageView currentDetailImage;
+   // SmartImageView currentDetailImage;
     TextView currentCondition;
     TextView currentTemp;
     TextView currentLastupdate;
     ListView currentList;
 
-    TextView currentWind;
-    TextView  currentPressure;
-    TextView currentPrecip;
-    TextView  currentVisibility;
-    TextView  currentDewPoint;
-
 
     //Hourly Views
-    TextView hour;
-    SmartImageView hourDetailImage;
+   // SmartImageView hourDetailImage;
     TextView hourCondition;
     TextView hourTemp;
     TextView hourFeelLike;
@@ -42,7 +39,7 @@ public class MyActivity extends Activity {
 
 
     //Daily Views
-    SmartImageView dayDetailImage;
+   // SmartImageView dayDetailImage;
     TextView dayCity;
     TextView dayCondition;
     TextView dayHighTemp;
@@ -85,15 +82,13 @@ public class MyActivity extends Activity {
         // Today ForeCast //
 
 
+       // back = (LinearLayout)findViewById(R.id.back);
+
 
 
         currentAdapter = new CurrentAdapter(this, todayData, R.layout.current_list_cell);
         hourlyAdapter = new HourlyAdapter(this, hourlyData, R.layout.hour_list_cell);
         dailyAdapter = new DailyAdapter(this, tenDayData, R.layout.daylistcell);
-
-        todayAsync = new TodayAsync(this, todayData);
-        todayAsync.execute("http://api.wunderground.com/api/7ba4162762b10c05/conditions/q/FL/orlando.json");
-
 
 
     }
@@ -102,65 +97,48 @@ public class MyActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            if(parent == hourList){
-                loadUI(position, 1,false);
-            }else if (parent == dayList){
-                loadUI(position,2,false);
-            }
-
         }
     };
 
-    public void loadUI(int x, int y, boolean z){
+    public void loadUI(int x, int y, boolean b){
 
         if (y == 0){
 
             //Current Views
             city = (TextView)findViewById(R.id.city);
-            currentDetailImage = (SmartImageView)findViewById(R.id.current_icon);
+            //currentDetailImage = (SmartImageView)findViewById(R.id.current_icon);
             currentCondition = (TextView)findViewById(R.id.current_condition);
             currentTemp = (TextView)findViewById(R.id.current_temp);
             currentLastupdate= (TextView)findViewById(R.id.current_lastUpdate);
-            currentWind = (TextView)findViewById(R.id.current_wind);
-            currentPressure = (TextView)findViewById(R.id.current_pressure);
-            currentPrecip = (TextView)findViewById(R.id.current_precip);
-            currentVisibility = (TextView)findViewById(R.id.current_visibility);
-            currentDewPoint = (TextView)findViewById(R.id.current_Dew);
+            currentList = (ListView)findViewById(R.id.current_List);
 
             city.setText(todayData.get(x).city);
-            currentDetailImage.setImageUrl(todayData.get(x).iconURL);
+           // currentDetailImage.setImageUrl(todayData.get(x).iconURL);
             currentCondition.setText(todayData.get(x).condition);
             currentTemp.setText(todayData.get(x).temperature);
             currentLastupdate.setText(todayData.get(x).observationTime);
-            currentWind.setText(todayData.get(x).windMph);
-            currentPressure.setText(todayData.get(x).pressure);
-            currentPrecip.setText(todayData.get(x).precipToday);
-            currentVisibility.setText(todayData.get(x).visability);
-            currentDewPoint.setText(todayData.get(x).dewPoint);
+           // back.setBackgroundColor(getResources().getColor(R.color.color1));
 
 
         } else if (y == 1){
 
             //Hourly Views
-            hour = (TextView)findViewById(R.id.time);
-            hourDetailImage = (SmartImageView)findViewById(R.id.hour_image);
+           // hourDetailImage = (SmartImageView)findViewById(R.id.hour_image);
             hourCondition = (TextView)findViewById(R.id.hour_condition);
             hourTemp = (TextView)findViewById(R.id.hour_temp);
             hourFeelLike = (TextView)findViewById(R.id.hour_feelLike);
             hourLongDate = (TextView)findViewById(R.id.hour_long_date);
             hourList = (ListView)findViewById(R.id.hour_List);
 
-            hour.setText(hourlyData.get(x).civilPull);
-            hourDetailImage.setImageUrl(hourlyData.get(x).icon_urlPull);
+           // hourDetailImage.setImageUrl(hourlyData.get(x).icon_urlPull);
             hourCondition.setText(hourlyData.get(x).conditionPull);
-            hourTemp.setText("Temp: " + hourlyData.get(x).tempPull + " F");
-            hourFeelLike.setText("Feels Like: " + hourlyData.get(x).feelsLikePull + " F");
+            hourTemp.setText(hourlyData.get(x).tempPull);
+            hourFeelLike.setText(hourlyData.get(x).feelsLikePull);
             hourLongDate.setText(hourlyData.get(x).civilPull);
+            hourList.setAdapter(hourlyAdapter);
 
-            if (z == true) {
-                hourList.setAdapter(hourlyAdapter);
-                hourList.setOnItemClickListener(itemClickListener);
-            }
+
+
 
 
 
@@ -168,7 +146,7 @@ public class MyActivity extends Activity {
 
             //Daily Views
             dayCity = (TextView)findViewById(R.id.city);
-            dayDetailImage = (SmartImageView)findViewById(R.id.day_icon);
+           // dayDetailImage = (SmartImageView)findViewById(R.id.day_icon);
             dayCondition = (TextView)findViewById(R.id.day_condition);
             dayHighTemp = (TextView)findViewById(R.id.day_hi_temp);
             dayLowTemp = (TextView)findViewById(R.id.day_lo_temp);
@@ -176,17 +154,13 @@ public class MyActivity extends Activity {
             dayList = (ListView)findViewById(R.id.day_List);
 
             dayCity.setText(tenDayData.get(x).weekday);
-            dayDetailImage.setImageUrl(tenDayData.get(x).iconUrl);
+           // dayDetailImage.setImageUrl(tenDayData.get(x).iconUrl);
             dayCondition.setText(tenDayData.get(x).condition);
             dayHighTemp.setText("High: "+ tenDayData.get(x).high);
             dayLowTemp.setText("Low: " +tenDayData.get(x).low);
             //dayLastUpdated.setText(tenDayData.get(x).);
 
-            if (z == true){
-                dayList.setAdapter(dailyAdapter);
-                dayList.setOnItemClickListener(itemClickListener);
-            }
-
+            dayList.setAdapter(dailyAdapter);
 
 
         }

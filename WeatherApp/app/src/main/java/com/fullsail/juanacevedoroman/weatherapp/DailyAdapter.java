@@ -51,16 +51,12 @@ public class DailyAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(mlayout, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.day_layout, parent, false);
         }
 
-        // object item based on the position
-        if (mlayout == R.layout.daylistcell) {
+                TenDayObject item = getItem(position);
 
-            TenDayObject item = getItem(position);
-
-
-            SmartImageView myImage = (SmartImageView) convertView.findViewById(R.id.day_cellImage);
+            SmartImageView myImage = (SmartImageView) convertView.findViewById(R.id.day_icon);
             TextView day = (TextView) convertView.findViewById(R.id.day_cellDay);
             TextView hi = (TextView) convertView.findViewById(R.id.day_cellHigh);
             TextView low = (TextView) convertView.findViewById(R.id.day_cellLow);
@@ -70,8 +66,6 @@ public class DailyAdapter extends BaseAdapter {
             hi.setText("High: " + item.high);
             low.setText("Low: " + item.low);
 
-
-        }
 
         return convertView;
     }

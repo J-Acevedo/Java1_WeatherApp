@@ -94,7 +94,19 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
                 }
 
                     data.add(new HourlyPull(prettyHolder, civilHolder, tempHolder, feelsHolder, conditionHolder, humidityHolder, iconHolder));
+
+
+                    if (x == 23){
+                        //When reach to 23 items break
+                        return null;
+                    }
+
+
+
+
                 }
+
+
 
 
         } catch (IOException e) {
@@ -116,7 +128,7 @@ public class HourlyForcast extends AsyncTask<String, Integer, String>{
 
         activity.hourlyData.addAll(0,data);
 
-        Log.d("DATA", ""+data.size());
+        Log.d("DATA", "" + data.size());
 
         activity.loadUI(0,1,true);
 
