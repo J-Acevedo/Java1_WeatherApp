@@ -2,19 +2,42 @@ package com.fullsail.juanacevedoroman.imagepreview;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
-public class MyActivity extends Activity implements ActionBar.OnNavigationListener {
+public class MyActivity extends Activity implements ActionBar.OnNavigationListener, GridFragment.GridFragmentListener {
 
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +106,10 @@ public class MyActivity extends Activity implements ActionBar.OnNavigationListen
 
         switch (position){
             case 0:
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.container, GridFragment.newInstance())
-                        .commit();
+               MyTask task = new MyTask();
+                task.execute("http://www.panoramio.com/map/get_panoramas.php?set=public&from=0&to=20&minx=-180&miny=-90&maxx=180&maxy=90&size=medium&mapfilter=true");
+
+
                 break;
 
             case 1:
@@ -98,23 +122,97 @@ public class MyActivity extends Activity implements ActionBar.OnNavigationListen
         return true;
     }
 
+    @Override
+    public void viewImage(String _url) {
+
+
+
+        //File outputDir = getCacheDir(); // context being the Activity pointer
+        //File outputFile = File.createTempFile("prefix", "extension", outputDir);\
+
+
+
+
+        Intent view = new Intent(Intent.ACTION_VIEW);
+        view.setDataAndType(Uri.parse(_url),"image/*");
+        startActivity(view);
+
+
+    }
+
+
+
+
 
     private class MyTask extends AsyncTask<String, Integer, ArrayList<PictureObject>>{
 
         ArrayList<PictureObject> data = new ArrayList<PictureObject>();
 
+        HttpURLConnection connection;
+        String jsonString;
+
+
         @Override
         protected ArrayList<PictureObject> doInBackground(String... params) {
 
+            try {
+
+                URL url = new URL(params[0]);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream is = connection.getInputStream();
+                jsonString = IOUtils.toString(is);
+                is.close();
+                connection.disconnect();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                connection.disconnect();
+            }
+
+            try {
+                JSONObject response = new JSONObject(jsonString);
+                JSONArray photos = response.getJSONArray("photos");
+
+                data.clear();
+                for (int i = 0; i < photos.length(); i++) {
+
+                    JSONObject picture = photos.getJSONObject(i);
 
 
-            return null;
+                    String picUrl = picture.getString("photo_file_url");
+                    String picname = picture.getString("photo_title");
+
+                    data.add(new PictureObject(picname, picUrl));
+
+                }
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+
+            return data;
         }
 
 
         @Override
         protected void onPostExecute(ArrayList<PictureObject> pictureObjects) {
             super.onPostExecute(pictureObjects);
+
+
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, GridFragment.newInstance(pictureObjects),GridFragment.TAG)
+                    .commit();
+
         }
     }
 
